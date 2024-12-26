@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Метеостанция</title>
+</head>
+<body>
+    <h1>Метеостанция</h1>
+    <p id="data1"></p>
+    <p id="data2"></p>
+
+    <script>
+                function updateData() {
+            fetch('/data', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('data1').innerText = `Temp(LM75A): ${data.LM75A} °`;
+                document.getElementById('data2').innerText = `Vlag(DHT22): ${data.DHT22} %`;
+
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        setInterval(updateData, 2000);
+
+    </script>
+</body>
+</html>
